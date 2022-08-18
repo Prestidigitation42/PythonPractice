@@ -1,0 +1,21 @@
+'''
+Created on Jul 30, 2022
+
+@author: nstru
+
+Source: https://www.youtube.com/watch?v=YXPyB4XeYLA&t=637s
+'''
+
+from tkinter import *
+
+root = Tk()
+
+# Creating a Label Widget
+myLabel1 = Label(root, text="Hello.")
+myLabel2 = Label(root, text="My name is Enigo Montoya.")
+
+# Shoving it onto the screen
+myLabel1.grid(row=0, column=0)
+myLabel2.grid(row=1, column=0)
+
+root.mainloop()
