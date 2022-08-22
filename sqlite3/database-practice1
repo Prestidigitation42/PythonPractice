@@ -1,0 +1,74 @@
+'''
+Created on Aug 14, 2022
+
+@author: nstru
+'''
+
+import sqlite3
+
+# Connect to database
+conn = sqlite3.connect('customer.db')
+
+# Create cursor
+c = conn.cursor()
+
+""" Create a list of customers (Already executed, in database)
+beatles = [('John', 'Lennon', 'yoko@ono.com'),
+           ('Paul', 'McCartney', 'yellowsubmarine@gmail.com'),
+           ('George', 'Harrison', 'whoops@gmail.com'),
+           ('Ringo', 'Starr', 'drummerboy@beatlemania.com')]
+
+c.executemany("INSERT INTO customers VALUES (?,?,?)", beatles)
+"""
+
+''' Commented out as table is only created once
+# Create a table
+c.execute("""CREATE TABLE customers (
+        first_name text,
+        last_name text,
+        email text
+    )""")
+'''
+
+# Update Records
+
+c.execute("""UPDATE customers SET first_name = 'John'
+            WHERE rowid = 1
+    """)
+
+# c.execute("DELETE from customers WHERE rowid=7")
+
+
+# Commit Changes
+conn.commit()
+
+
+
+
+
+
+
+# Query the Database
+c.execute("SELECT rowid, * FROM customers")
+
+# Options: fetchone, fetchmany, fetchall
+
+# print(c.fetchone())
+# print(c.fetchmany())
+# print(c.fetchall())
+
+# Can also be used to create a variable
+items = c.fetchall()
+
+for item in items:
+    # print(item[0] + " " + item[1] + ", " + item[2])
+    print(item)
+ 
+
+# print("Command executed")
+
+# Commit Changes
+conn.commit()
+
+# Close Connection
+conn.close()
