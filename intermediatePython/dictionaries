@@ -1,0 +1,59 @@
+'''
+Created on Sep 12, 2022
+
+@author: nstru
+'''
+
+'''
+-Dictionary: Collection data type that is unordered and mutable
+-Collection of key-value pairs
+'''
+
+mydict1 = {"name": "Bastyr", "age": "7 ans", "city": "Taervalya"}
+print(mydict1)
+
+mydict2 = dict(name="Pella", age="3 ans", city="Nystoros")
+print(mydict2)
+
+# Access value assigned to key
+ageB = mydict1["age"]
+print(ageB)
+
+# Mutable: Values can be added or changed after creation
+mydict1["House"] = "Althuis"
+mydict2["House"] = "Mayecrane"
+
+# Remove items with del item, .pop(item), or popitem() 
+
+# Check for items in dictionary: if in
+if "name" in mydict1:
+    print(mydict1["name"])
+# Check for items in dictionary: try except
+try:
+    print(mydict1["lastname"])
+except:
+    print("Error")
+    
+# Loop through items in dictionary: keys
+for key in mydict2:
+    print(key)
+# Loop through items in dictionary: value
+for value in mydict2.values():
+    print(value)
+# Loop through items in dictionary: key value
+for key, value in mydict1.items():
+    print(key, value)
+    
+# Take care when copying dictionaries: DO NOT DO THIS
+mydict1_copy = mydict1 # Both point to same dictionary in memory
+# Use .copy() method to successfully create a copy
+mydict1_copy2 = mydict1.copy()
+
+# Merge two dictionaries using update: CAUTION
+mydict1.update(mydict2) # This overwrites existing key/value pairs
+print(mydict1)
+
+# Immutable objects (strings, numbers, tuples) can be used as keys
+testtuple = (8, 7)
+testdict = {testtuple: 15}
+print(testdict)
