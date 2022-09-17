@@ -1,0 +1,21 @@
+'''
+Created on Sep 10, 2022
+
+@author: nstru
+'''
+
+from gameClass import Game, BossGame
+from mainGame import play_game
+from playerClass import HumanPlayer
+from screenClass import Screen
+import pygame
+import sys
+
+if __name__ == "__main__":
+    pygame.init()
+
+    screen = Screen()
+    player = HumanPlayer(screen.width/2, screen.height-100)
+    game = BossGame(max_enemies=10)
+
+    play_game(screen, player, game)
