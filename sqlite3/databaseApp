@@ -1,0 +1,22 @@
+'''
+Created on Aug 22, 2022
+
+@author: nstru
+'''
+
+import database_practice as dbp
+
+# dbp.add_one('Yankee', 'Foxtrot', 'babe2@gmail.com') Already added
+
+#dbp.delete_one('2') # Currently there is no row with rowid=2
+
+# Add many records
+fans = [('Martha', 'Stuart', 'betterinorange@yahoo.com'),
+        ('Tony', 'Soprano', 'problemsolvers@aol.com'),
+        ('Snoop', 'Dogg', 'everyday@smoke.it')]
+
+# dbp.add_many(fans) Already added
+
+dbp.email_lookup('everyday@smoke.it')
+
+#dbp.show_all()
