@@ -1,0 +1,100 @@
+'''
+Created on Aug 31, 2022
+
+@author: nstru
+'''
+
+# Lists: ordered, mutable, allows duplicate elements
+mylist1 = ['apple', 'banana', 'cherry']
+
+# List can contain different data types
+mylist2 = [5, False, 'apple', 'apple']
+
+# Items in list can be accessed via list index
+item = mylist1[2]
+print(item)
+
+# Iterate over lists with a "for...in..." loop
+for item in mylist2:
+    print(item)
+    
+# Check if item is in a list
+if 'banana' in mylist1:
+    print('Yes')
+else:
+    print('No')
+    
+# Use len() method to find num items in a list
+print(len(mylist2))
+
+# Add items to the end of a list with append()
+mylist1.append('date')
+
+# Add items at any index using insert()
+mylist2.insert(3, 3.14)
+print(mylist2)
+
+# Return and remove final list item with pop()
+mylist2.pop()
+print(mylist2)
+
+# Remove all list elements with clear()
+# mylist.clear()
+# print(mylist)
+
+# Reverse list order with reverse()
+mylist2.reverse()
+print(mylist2)
+
+# Order list with sort() [Only if list contains single data type]
+mylist1.sort()
+
+# Create a new list w/o changing old list using sorted()
+mylist3 = [45, 234, 12, 32, 6643, 76, 842]
+sortedlist3 = sorted(mylist3)
+print(mylist3)
+print(sortedlist3)
+
+# Lists containing all the same item can be initiated using *
+mylist4 = [4] * 4
+print(mylist4)
+
+# Lists can be concatenated using + 
+superlist1 = mylist2 + mylist3
+print(superlist1)
+
+# Slicing can be used to access subsets of a list
+slice1 = superlist1[:5]
+print(slice1)
+
+slice2 = superlist1[5:]
+print(slice2)
+
+# Stepping accesses specified items from list
+numlist1 = []
+
+for i in range(15):
+    numlist1.append(i+1)
+    
+numstep1 = numlist1[::1]
+print(numstep1)
+numstep2 = numlist1[::2]
+print(numstep2)
+
+# Using a step of -1 is another way to reverse list
+backstep1 = numlist1[::-1]
+print(backstep1)
+
+# Be very careful with copying lists, the below does NOT work
+mylistcopy = mylist1
+mylistcopy.append('edij')
+print(mylist1)
+
+# Several methods can create list copies without memory issues
+mylistcopy2 = mylist1.copy()
+mylistcopy3 = list(mylist1)
+mylistcopy4 = mylist1[:]
+
+# List comprehension [expression + for + in]
+numsquared = [x*x for x in numlist1]
+print(numsquared)
