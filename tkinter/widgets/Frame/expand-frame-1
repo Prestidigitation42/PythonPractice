@@ -9,6 +9,7 @@ from tkinter import *
 root = Tk()
 root.geometry("300x200")
 
+# Expand=1 leaves a gray space between green and orange stripes
 navbar = Frame(root, bg="green", width=100)
 navbar.pack(anchor=W, fill=Y, expand=False, side=LEFT)
 
