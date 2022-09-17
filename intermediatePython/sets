@@ -1,0 +1,102 @@
+'''
+Created on Sep 13, 2022
+
+@author: nstru
+
+Source:
+-https://www.youtube.com/watch?v=HGOBQPFzWKo&t=2555s
+'''
+
+'''
+Set: Collection data type that is underorder & mutable. Does not allow
+duplicate elements
+'''
+
+myset1 = {1, 2, 3}
+print(myset1)
+# Duplicates are removed from sets (during variable assignment?)
+myset2 = {1, 2, 3, 1, 2}
+print(myset2)
+print(myset1 == myset2)
+# Set function can iterate over a list or string
+mysetList = ([1, 2, 4, 8, 16])
+mysetString = {"Hello"}
+# Set function must be used to create an empty set
+mysetWrong = {} # This creates a dictionary
+mysetRight = set() # This creates a set
+print(type(mysetWrong)) 
+print(type(mysetRight))
+
+# Sets are mutable using .add() and .remove()
+myset1.add(4)
+myset1.add(8)
+myset1.remove(3) # Will raise Key Error if item is not in set
+myset1.discard(3) # Removes element if found, no error if not found
+# Sets can be cleared with .clear()
+myset2.clear()
+# .pop() method removes and returns a random element from the set
+print(myset1.pop())
+print(myset1)
+
+# Iterate over a set: for in loop
+for i in myset1:
+    print(i)
+# Check if element is in a set: if in
+if 2 in myset2:
+    print("Yes")
+else:
+    myset2.add(2)
+    print(f"2 added to {myset2}")
+    
+# Calculate the union of sets using .union()
+odds = {1, 3, 5, 7, 9}
+evens = {0, 2, 4, 6, 8}
+primes = {2, 3, 5, 7}
+u = odds.union(evens)
+print(u)
+# Calculate intesection of sets using .intersection()
+i = odds.intersection(primes) # 
+print(i)
+# Difference between two sets: All elements in first set but not second
+diff = u.difference(i) # {0, 1, 2, 4, 6, 8, 9}
+print(diff)
+diff2 = i.difference(u) # set()
+print(diff2)
+# .symmetric_difference returns all elements in one set but not both
+diffSym = i.symmetric_difference(u) # {0, 1, 2, 4, 6, 8, 9}
+print(diffSym)
+
+# Above methods do not change original set, .update() does change it
+setA = {1, 2, 3, 4, 6, 7, 10, 13}
+setB = {2, 3, 4, 5, 6, 7, 8, 9}
+setA.update(setB) # Adds all element in B to A
+print(setA)
+# .intersection_update() keeps only elements in both sets
+setA.intersection_update(setB)
+print(setA)
+# .difference_update() keepds difference between two sets
+setA.difference_update(setB)
+print(setA)
+# .symmetric_difference_update() keeps elements in one but not both sets
+setB.symmetric_difference_update(setA)
+print(setB)
+
+# Check for subsets using .issubset()
+print(setB.issubset(setA)) # False
+print(setA.issubset(setB)) # True
+# Check for supersets using .issuperset()
+print(setB.issuperset(setA)) # True
+print(setA.issuperset(setB)) # False
+# Check for disjointedness using .isdisjoint()
+print(setA.isdisjoint(setB)) # True
+
+# Take same care with copying sets as other collection data types
+setC = {12, 13, 14, 16}
+setD = setC # Heart of the error: Both point to same set
+setD.add(17)
+print(setC) # {12, 13, 14, 16, 17}
+# Use .copy() or set() to create a functioning copy of a set
+
+# Frozen set: Immutable version of normal set
+setE = frozenset([1, 2, 3, 4])
+# setE.add(5) This would result in an AttributeError
