@@ -5,7 +5,6 @@ Created on Aug 3, 2022
 '''
 
 from tkinter import *
-from PIL import ImageTk, Image
 from tkinter import messagebox
 
 root = Tk()
