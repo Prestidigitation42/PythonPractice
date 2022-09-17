@@ -1,0 +1,70 @@
+'''
+Created on Sep 12, 2022
+
+@author: nstru
+'''
+
+'''
+-Tuple: Collection data type that is ordered and immutable
+-Similar to a list but cannot be changed after creation
+-Often used to group together similar information
+'''
+
+import sys
+import timeit
+
+my_tuple1 = ("Mad Max", "Vecna", "Hawkins")
+print(my_tuple1)
+
+item1 = my_tuple1[0] # tuples can be indexed like lists
+print(item1)
+
+# my_tuple1[0] = "Mike" doesn't work tuple cannot be changed
+
+# Check for items in tuple:
+if "Vecna" in my_tuple1:
+    print("Oh, shit")
+else:
+    print("Whew")
+    
+my_tuple2 = ('a', 'p', 'p', 'l', 'e')
+# Count elements in tuple
+print(my_tuple2.count('a'))
+print(my_tuple2.count('p'))
+
+# Find index of first occurrence of an element
+print(my_tuple2.index('l')) # Can result in a ValueError
+
+# Tuples can be converted into lists and vice versa
+my_list1 = list(my_tuple1)
+print(my_list1)
+my_tuple3 = tuple(my_list1)
+print(my_tuple3)
+
+# Tuple slicing
+a = (1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+b = a[2:9] # Start and stop indices
+c = a[:6] # Start to index 6
+d = a[4:] # Index 4 to end
+e = a[::-1] # Reverses list
+print(b)
+
+# Tuples can be separated piecewise
+i1, *i2, i3 = a
+print(i1) # First element
+print(i2) # Middle everything
+print(i3) # Final element
+
+hero, villian, city = my_tuple1
+print(hero + villian + city)
+
+# Tuples are smaller than lists bytewise
+aList = list(a)
+print(sys.getsizeof(a), "bytes") # Tuple, 120 bytes
+print(sys.getsizeof(aList), "bytes") # List, 136 bytes
+
+# Difference can add up over many iterations
+# Create list 1,000,000 times: 0.044813499989686534s
+print(timeit.timeit(stmt="[0, 1, 2, 3, 4, 5]", number=1000000))
+# Create tuple 1,000,000 times: 0.006973300012759864s
+print(timeit.timeit(stmt="(0, 1, 2, 3, 4, 5)", number=1000000))
