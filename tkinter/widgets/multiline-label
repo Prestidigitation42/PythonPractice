@@ -1,0 +1,14 @@
+'''
+Created on Sep 15, 2022
+
+@author: nstru
+'''
+
+import tkinter as Tk
+
+root = Tk.Tk()
+
+myLabel = Tk.Label(root, text="Line 1 of test\nLine 2 of text")
+myLabel.pack()
+
+root.mainloop()
