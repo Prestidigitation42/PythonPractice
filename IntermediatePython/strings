@@ -1,0 +1,114 @@
+'''
+Last GitHub Sync:
+
+Created on: 9/19/22
+
+@author: nstru
+'''
+
+'''
+-String: Collection data type that is ordered and immutable
+-Used for text representation (among other uses)
+'''
+
+from timeit import default_timer as timer
+
+# Strings are created with single '' or double "" quotes
+single = '"Single quotes"'
+double = "'Double quotes'"
+
+print(single + ' ' + double) # "Single quotes" 'Double quotes'
+
+# Escape character \ allows text across multiples lines of code to consolidate
+singleLine = "test\
+ string"
+print(singleLine) # test string
+
+# Subsets of strings can be selected like lists
+baseString = "Hello World"
+char = baseString[0:3]
+print(char) # Hel
+
+# Strings are immutable and cannot be updated
+# baseString[5] = "O" <- This causes a TypeError
+
+# Strings can be reversed with index [::-1]
+backString = baseString[::-1]
+print(backString) # dlroW olleH
+
+# Two strings can be concatenated with + 
+mirrorString = baseString + ' ' + backString
+print(mirrorString)
+
+# Strings can be iterated over with for/in loop
+for i in mirrorString:
+    print(i)
+    
+# String contents can be checked with if in
+if 'ell' in mirrorString:
+    print("Hello")
+    
+# Wide space around a string can be removed with .strip()
+wideString = "     Five Spaces     "
+print(wideString)
+# Just wideString.strip() does nothing because strings are immutable
+wideString = wideString.strip() 
+print(wideString)
+
+# Strings can be changed to all uppercase with .upper()
+upperString = wideString.upper()
+print(upperString)
+
+# Strings can be changed to lowercase with .lower()
+lowerString = wideString.lower()
+print(lowerString)
+
+# .startswith('text'), .endswith('text) return True/False
+
+# .find('text') returns index of first instance, else -1 if not found
+print(mirrorString.find("olle"))
+
+# .replace('old text', 'new text') creates a new string with new text
+print(wideString.replace("Spaces", "Point Palm Exploding Heart Technique"))
+
+# Strings can be converted to lists, default delimiter space ( )
+myList = mirrorString.split() 
+print(myList)
+myListNoL = mirrorString.split('l')
+print(myListNoL)
+
+# .join() turns a list into a string
+restrungPacked = ''.join(myList)
+print(restrungPacked)
+restrungSpaced = ' '.join(myList)
+print(restrungSpaced)
+
+# Be careful with transforming lists into strings
+aList = ['a'] * 1000000
+
+# Bad approach, creates far too many new variables (new string each line)
+start = timer()
+aString = ''
+for i in aList:
+    aString += i
+    # print(aString) Do NOT want to print 1000000 lists
+stop = timer()
+print(stop - start) # Time taken 0.1356461s
+
+# Better approach
+start = timer()
+aString = ''.join(aList)
+# print(aString)
+stop = timer()
+print(stop - start) # Time taken 0.0050178s
+
+# String formatting (%s string, %d integer, %f float (6-digit default),
+# adjust with %.nf, where n = digits
+var = "Tom"
+testString = "the variable is %s" % var
+print(testString)
+
+# f-strings
+fvar = "Larry"
+fString = f"it is easier to place the variable {fvar}"
+print(fString)
