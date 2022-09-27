@@ -1,0 +1,92 @@
+'''
+Last GitHub Sync: 9/27/22
+
+Created on: 9/27/22
+
+@author: nstru
+'''
+
+'''
+-itertools: Collection of tools for handling iterators (data types that
+ can be used in a for loop)
+'''
+
+from itertools import (product, permutations, combinations,
+    combinations_with_replacement, accumulate, groupby)
+# itertools infinite operators
+from itertools import count, cycle, repeat
+import operator
+
+# product: Computes Cartesian products of input iterables
+a = [1, 2]
+b = [3, 4]
+prodAB = product(a,b)
+print(list(prodAB)) # [(1,3), (1,4), (2,3), (2,4)]
+# repeat parameter causes result to iterate again
+c = [5]
+prodAC2 = product(a,c,repeat=2)
+print(list(prodAC2)) # [(1,5,1,5), (1,5,2,5), (2,5,1,5), (2,5,2,5)]
+
+# permutations: Returns all possible orderings of an input
+d = [1, 3, 5]
+perm = permutations(d)
+print(list(perm)) # [(1,3,5), (1,5,3), (3,1,5), (3,5,1), (5,1,3), (5,3,1)]
+# permutations can also be restricted to just results of a certain list
+perm2 = permutations(d,2)
+print(list(perm2)) # [(1,3), (1,5), (3,1), (3,5), (5,1), (5,3)]
+
+# combinations: Makes all possible combinations of specified length
+e = [1, 2, 3, 4]
+comb = combinations(e, 2)
+print(list(comb)) # [(1,2), (1,3), (1,4), (2,3), (2,4), (3,4)]
+combWR = combinations_with_replacement(e, 2)
+print(list(combWR)) # [(1,1), (1,2), (1,3), (1,4), (2,2), (2,3), (2,4), (3,3),
+                    # (3,4), (4,4)]
+        
+# accumulate: Computes sum item by item       
+acc = accumulate(e)
+print(list(acc)) # [1, 3, 6, 10]
+# Use operator.mul to multiply item-by-item instead
+accMul = accumulate(e, func=operator.mul)
+print(list(accMul)) # [1, 2, 6, 24]
+
+# groupby: Makes an iterator that returns keys groups from an iterable
+def smaller_than_3(x):
+    return x < 3
+
+f = [1, 2, 3, 4, 6, 7]
+groupObj = groupby(f, key=smaller_than_3)
+for key, value in groupObj:
+    print(key, list(value)) # True [1, 2], False [3, 4, 6, 7]
+
+# This can also be done using a lamdba expression
+groupObj2 = groupby(f, key=lambda x: x<=5)
+for key, value in groupObj2:
+    print(key, list(value)) # True [1, 2, 3, 4], False [6, 7]
+    
+# groupby can also work with dictionaries
+persons = [{'name': 'Tim', 'age': 25}, {'name': 'Dan', 'age': 25},
+           {'name': 'Lisa', 'age': 27}, {'name': 'Claire', 'age': 28}]
+
+groupPersons = groupby(persons, key=lambda x: x['age'])
+for key, value in groupPersons:
+    print(key, list(value)) # 25 [{'name': 'Tim', 'age': 25}, 
+                            # {'name': 'Dan', 'age': 25}]
+                            # 27 [{'name': 'Lisa', 'age': 27}]
+                            # 28 [{'name': 'Claire', 'age': 28}]
+
+# Infinite iterators, continue endlessly without break command
+# Count
+for i in count(10):
+    print(i)
+    if i == 15:
+        break
+
+# Cycle
+for i in cycle(f):
+    print(i)
+
+# Repeat (Second parameter = times repeated)
+for i in repeat(1, 5):
+    print(i)
+
