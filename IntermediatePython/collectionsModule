@@ -1,0 +1,67 @@
+'''
+Last GitHub Sync: 9/27/22
+
+Created on: 9/27/22
+
+@author: nstru
+'''
+from _collections import OrderedDict
+from email.policy import default
+
+'''
+-collections module implements special container data types, provides
+ alteratives w/addition functionality compared to regular data types
+ (dictionaries, lists, tuples)
+'''
+
+from collections import Counter, namedtuple, OrderedDict, defaultdict, deque
+
+# Counter: Stores elements as dictionary keys, counts as dictionary values
+a = "aaaaaabbbbcccdddddd"
+myCounter1 = Counter(a)
+# dictionary functions .items(), .keys(), .values() work as normal
+print(myCounter1.items()) # dict_items([('a', 6), ('b', 4), ('c', 3)])
+# .most_common(n) returns a list of tuples of most common values in Counter()
+print(myCounter1.most_common(2))
+# .elements() creates iterable over all items in dictionary
+print(list(myCounter1.elements()))
+
+# namedtuple: Easy to create, lightweight object type
+# Creates class Point with fields x, y
+Point = namedtuple('Point', 'x,y')
+pointA = Point(1, -4)
+print(pointA, pointA.x, pointA.y)
+
+# OrderedDict: Like a dictionary but remembers order items were inserted
+# Less important now that built-in Python dictionary has this functionality
+orderedDict = OrderedDict()
+orderedDict['c'] = 3
+orderedDict['d'] = 4
+orderedDict['a'] = 1
+orderedDict['b'] = 2
+orderedDict['e'] = 5
+print(orderedDict)
+
+# defaultdict: Dictionary with default value of chosen data type
+d = defaultdict(int)
+d['a'] = 1
+d['c'] = 3
+d['b'] = 2
+print(d)
+print(d['d'])
+
+# deque: double ended queue, can be used to add/remove elements from both ends
+deck = deque()
+deck.append(1)
+deck.append(2)
+# Unique tools in deque: .appendleft(), .popleft(), .extend([]), .extendleft([])
+deck.appendleft(8)
+deck.popleft()
+deck.extend([5,9])
+deck.extendleft(([6,7])) 
+print(deck)
+# .rotate(n) moves all elements n places to the right, or left if n < 0
+deck.rotate(3)
+print(deck)
+deck.rotate(-5)
+print(deck)
