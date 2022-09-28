@@ -1,0 +1,89 @@
+'''
+Last GitHub Sync: 
+
+Created on: 9/28/22
+
+@author: nstru
+'''
+
+'''
+-Python program terminates as soon as it finds an error (syntax error
+ or exception)
+-Import error: Occurs when program tries to import nonexistent module
+ (ModuleNotFoundError)
+-Syntax error: Occurs when parses detects syntactically incorrect
+ statement
+-Exception error: Error in code execution, several error classes
+    -TypeError
+-NameError: Occurs when program tries to call undefined variable
+-FileNotFoundError
+-ValueError: Occurs when function/operations received an argument with
+ the right type but an inappropriate value
+-ZeroDivisionError: division by zero
+-IndexError: Occurs when index operation tries to access a list index
+ that is too large
+-KeyError: Occurs when nonexistent key is provided to a dictionary
+-Raise: Force exception to occur if circumstance occurs
+-TryExcept: 
+'''
+
+import somemodule # ModuleNotFoundError: No module named 'somemodule'
+
+a = 5 print(a) # Syntax error, print(a) must be in a new line
+print(a # Syntax error, missing parenthesis
+      
+# Exception errors
+b = 5 + '10' # TypeError: unsupported operand type(s) for +: 'int' and 'str'
+
+d = a + c # NameError: name 'a' is not defined
+
+f = open('somefile.txt') # FileNotFoundError: [Errno 2] No such file or 
+                         # directory: 'somefile.txt'
+
+g = [1, 2, 3]
+g.remove(4) # ValueError: list.remove(x): x not in list
+print(g[5]) # IndexError: list index out of range
+
+myDict = {'name': 'Max'}
+print(myDict['age']) # KeyError: 'age'
+
+# Raise an exception
+x = -5
+if x < 0:
+    raise Exception('x should be nonnegative')
+assert (x>=0), 'x is not positive' # AssertionError: text
+
+# Try/Except
+try:
+    a = 5/1
+    b = str(a) + '10'
+except ZeroDivisionError as e:
+    print(e)
+except TypeError as e:
+    print(e)
+else: # Run if none of the exceptions occur
+    print('Everything is fine')
+finally: # Runs always
+    print('Cleaning up afterwards')
+    
+# Define one's own expression by subclassing base exception class
+class ValueTooHighError(Exception):
+    pass
+
+class ValueTooLowError(Exception):
+    def __init__(self, message, value):
+        self.message = message
+        self.value = value
+
+def test_value(x):
+    if x > 100:
+        raise ValueTooHighError('Value is too high')
+    if x < 5:
+        raise ValueTooLowError('Value is too small', x)
+    
+try:
+    test_value(2)
+except ValueTooHighError as e:
+    print(e)
+except ValueTooLowError as e:
+    print(e.message, e.value)
