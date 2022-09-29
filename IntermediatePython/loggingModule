@@ -1,0 +1,42 @@
+'''
+Last GitHub Sync: 9/29/22
+
+Created on: 9/29/22
+
+Source: https://youtu.be/HGOBQPFzWKo
+
+@author: nstru
+'''
+
+'''
+-logging: Built-in module, five uses 
+    -Block levels
+    -configuration options
+    -logging in different modules
+    -Using different lock handlers
+    -Capturing stack traces
+    -Using rotating file handler
+'''
+import logging
+logging.basicConfig(level=logging.DEBUG, format='%(asctime)s - %(name)s '
+                    '-%(levelname)s - %(message)s',
+                    datefmt='%m%d%Y %H:%M:%S')
+import loggingHelper
+from logging.handlers import RotatingFileHandler
+
+logger = logging.getLogger(__name__)
+logger.setLevel(logging.INFO)
+
+# Roll over after 2KB and keep backup logs app.log.1, app.log.2, etc
+handler = RotatingFileHandler('app.log', maxBytes=2000, backupCount=5)
+logger.addHandler(handler)
+
+for _ in range(10000):
+    logger.info('Hello, world!')
+
+# Block levels
+logging.debug('This is a debug message') # Not printed in default basicConfig()
+logging.info('This is an info message') # Not printed in default basicConfig()
+logging.warning('This is a warning message')
+logging.error('This is an error message')
+logging.critical('This is a critical message')
