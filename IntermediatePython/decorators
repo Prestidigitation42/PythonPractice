@@ -1,0 +1,127 @@
+'''
+Last GitHub Sync: 10/2/22
+
+Created on: 10/2/22
+
+Source: https://youtu.be/HGOBQPFzWKo
+
+@author: nstru
+'''
+
+'''
+-Two types of decorators: function and class (function more common)
+-Decorator: function that takes another function as argument, extends
+ behavior of function w/o explicitly modifying it
+-functions in Python are first class objects, which means they can be
+ defined inside another function, passed as an argument to another 
+ function, and even returned from other functions.
+-Potential uses: timer decorator to calculate function execution time,
+ debug decorator, print out some info on called func & arguments,
+ register functions like plug-ins, cache returned values
+'''
+
+import functools
+
+# Decorator template
+def my_decorator(func):
+    
+    # Using functools.wrap preserves identity of base function
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        # Do something before function
+        result = func(*args, **kwargs)
+        # Do something after function
+        return result
+    return wrapper
+
+# Function decorator, @mydecorator extends functionality of do_something()
+# @mydecorator
+def do_something():
+    pass
+
+def start_end_decorator(func):  
+    
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        print('Start')
+        result = func(*args, **kwargs)
+        print('End')
+        return result
+    return wrapper
+
+@start_end_decorator
+def print_name():
+    print('Sarlo')
+
+# Apply the start_end_decorator to print_name (same as using @decorator)
+# print_name = start_end_decorator(print_name)
+print_name()
+
+# What if the function has an argument? Use *args, **kwargs
+@start_end_decorator
+def add5(x):
+    return x + 5
+
+print(help(add5))
+print(add5.__name__)
+result = add5(14)
+print(result)
+
+# Create a decorator to execute a function multiple times
+def repeat(num_times):
+    def decorator_repeat(func):
+        @functools.wraps(func)
+        def wrapper(*args, **kwargs):
+            for _ in range(num_times):
+                result = func(*args, **kwargs)
+            return result
+        return wrapper
+    return decorator_repeat
+            
+@repeat(num_times=3)
+def greet(name):
+    print(f"Hello {name}")
+    
+greet("Rhylen")
+
+# Multiple decorators can be applied to a function
+def debug(func):
+    @functools.wraps(func)
+    def wrapper(*args, **kwargs):
+        args_repr = [repr(a) for a in args]
+        kwargs_repr = [f"{k}={v!r}" for k, v in kwargs.items()]
+        signature = ", ".join(args_repr + kwargs_repr)
+        print(f"Calling {func.__name__}({signature})")
+        result = func(*args, **kwargs)
+        print(f"{func.__name__!r} returned {result!r}")
+        return result
+    return wrapper
+    
+@debug
+@start_end_decorator
+def say_hello(name):
+    greeting = f"Hello {name}"
+    print(greeting)
+    return(greeting)
+
+say_hello("Mir")
+
+# Class decorators: Typically used to maintain/update a state
+class CountCalls:
+    
+    def __init__(self, func):
+        self.func = func
+        self.num_calls = 0
+        
+    def __call__(self, *args, **kwargs):
+        self.num_calls += 1
+        print(f"This has been executed {self.num_calls} times")
+        return self.func(*args, **kwargs)
+    
+@CountCalls
+def say_hi():
+    print('Hi')
+
+say_hi()
+say_hi()
+say_hi()
