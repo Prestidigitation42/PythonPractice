@@ -1,0 +1,81 @@
+'''
+Last GitHub Sync: 10/1/22
+
+Created on: 10/1/22
+
+Source: https://youtu.be/HGOBQPFzWKo
+
+@author: nstru
+'''
+
+'''
+-JSON stands for JavaScript Object Notation
+-Lightweight data format used for data exchange, very used in web apps
+-Format similar to Python dictionary, changing a dictionary to JSON 
+ format is called serialization or encoding
+-Converting from JSON to Python is deserialization/decoding
+'''
+
+import json
+
+person = {
+    "name": "Cormau",
+    "age": 56,
+    "city": "Hapont",
+    "hasChildren": False,
+    "titles": ["goldsmith", "tinkerer"]
+}
+
+personJSON = json.dumps(person, indent=4, sort_keys=True)
+# print(personJSON)
+
+# Save to JSON
+# with open('person.json', 'w') as file:
+#     json.dump(person, file, indent=4)
+
+# Load from JSON
+# person = json.loads(personJSON)
+# print(person)
+
+with open('person.json', 'r') as file:
+    person = json.load(file)
+    print(person)
+
+# Using JSONs with classes
+class User:
+    
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+
+user = User('Max', 27)
+
+def encode_user(o):
+    if isinstance(o, User):
+        return {
+            'name': o.name,
+            'age': o.age,
+            o.__class__.__name__: True
+        }
+    else:
+        raise TypeError('Object of type User is not JSON serializable')
+
+
+userJSON = json.dumps(user, default=encode_user)
+print(userJSON)
+
+# How to overwrite the default JSONEncoder
+from json import JSONEncoder
+class UserEncoder(JSONEncoder):
+    
+    def default(self, o):
+        if isinstance(o, User):
+            return {
+                'name': o.name,
+                'age': o.age,
+                o.__class__.__name__: True
+        }
+        return JSONEncoder.default(self, o)
+
+clsJSON = json.dumps(user, cls=UserEncoder)
+print(clsJSON)
