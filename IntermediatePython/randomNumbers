@@ -1,0 +1,78 @@
+'''
+Last GitHub Sync: 10/1/22
+
+Created on: 10/1/22
+
+Source: https://youtu.be/HGOBQPFzWKo
+
+@author: nstru
+'''
+
+'''
+-Several built-in Python modules for randomization
+-random: Used for pseudo-random numbers
+-secrets: Used for cryptographically strong random numbers
+-NumPy: used to generate arrays with random numbers
+'''
+
+# Random: pseudo-random, numbers are reproducible (depend on seed)
+import random
+
+# With seed set the output is always the same
+# random.seed(1)
+# .random(): Produces random float in range [0,1]
+a = random.random()
+print(a)
+# .uniform(a, b): Creates random float in range [a,b]
+b = random.uniform(5,25)
+print(b)
+# .randint(a, b): Created random integer in rand [a, b)
+c = random.randint(1,10)
+print(c)
+# .normalvariate(mu, sigma): Picks random value from normal distribution
+# with mean mu and standard deviation sigma
+d = random.normalvariate(0, 1)
+print(d)
+# .choice: Selects an element from provided list
+myList = list("ABCDEFGHI")
+e = random.choice(myList)
+print(e)
+# .sample(list, # elements): Picks unique elements
+f = random.sample(myList, 4)
+print(f)
+# .choices(list, k=n): Picks n elements with repetition
+g = random.choices(myList, k=5)
+print(g)
+# .shuffle(list) randomizes order of the lsit
+random.shuffle(myList)
+print(myList)
+
+# Secrets module generates true random numbers; only has 3 functions
+import secrets
+
+# .randbelow(10): Produces random integer in range (0,10)
+secrets_a = secrets.randbelow(10)
+print(secrets_a)
+# .randbits(4): Produces random binary number
+secrets_b = secrets.randbits(4)
+print(secrets_b)
+# .choice(list) picks a random choice form list (not reproducible)
+secrets_c = secrets.choice(myList)
+print(secrets_c)
+
+# numpy module is useful for creating random arrays
+import numpy as np
+# numpy also has seed functionality like random
+# np.random.seed(1)
+
+# Create a random array
+np_a = np.random.rand(3,3)
+print(np_a)
+# Create an array of integers
+np_b = np.random.randint(0, 21, (3,4))
+print(np_b)
+# .random.shuffle(array) switches elements in the first access
+arr = np.array([[1,2,3], [4,5,6], [7,8,9]])
+print(arr)
+np.random.shuffle(arr)
+print(arr)
