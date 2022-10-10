@@ -4,7 +4,7 @@ Created on Aug 22, 2022
 @author: nstru
 '''
 
-import database_practice as dbp
+import databasePractice as dbp
 
 # dbp.add_one('Yankee', 'Foxtrot', 'babe2@gmail.com') Already added
 
