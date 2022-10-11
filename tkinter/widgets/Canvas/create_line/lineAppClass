@@ -48,11 +48,18 @@ class DrawLineApp():
             self.click_number = 0
 
 root = Tk.Tk()
-myDrawLine = DrawLineApp(root,
+myDrawLine1 = DrawLineApp(root,
                          width=400,
                          height=300,
                          color='white',
                          row=0,
+                         column=0
+)
+myDrawLine2 = DrawLineApp(root,
+                         width=400,
+                         height=300,
+                         color='red',
+                         row=1,
                          column=0
 )
 root.mainloop()
