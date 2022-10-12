@@ -1,5 +1,7 @@
 '''
-Last GitHub Sync: 9/27/22
+Last GitHub Sync
+-Desktop: 10/12/22
+-Surface Pro: 10/12/22
 
 Created on: 9/27/22
 
@@ -89,4 +91,3 @@ for i in cycle(f):
 # Repeat (Second parameter = times repeated)
 for i in repeat(1, 5):
     print(i)
-
