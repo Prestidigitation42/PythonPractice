@@ -1,0 +1,104 @@
+'''
+Last GitHub Sync
+-Desktop: 10/12/22
+-Surface Pro: 10/12/22
+
+Created on: 10/2/22
+
+Source: https://youtu.be/HGOBQPFzWKo
+
+@author: nstru
+'''
+
+'''
+-Generators are functions that return an object that can be iterated
+ over. Generate items lazily, only one at a time and only on request.
+-Much more memory efficient than other sequence objects when dealing
+ with large data sets.
+-Defined like a normal function, but uses yield instead of return
+'''
+import sys
+
+def mygenerator():
+    yield 1
+    yield 2
+    yield 3
+    
+g = mygenerator()
+print(g)
+
+# Can iterate over generator like a list
+# for i in g:
+#     print(i)
+
+# next runs until it reaches first yield statement, then pauses  
+value = next(g)
+print(value) # 1
+value = next(g)
+print(value) # 2
+value = next(g)
+print(value) # 3
+# value = next(g)
+# print(value) # StopIteration error
+
+# Many built-in functions work with generators, such as sum and sorted
+g2 = mygenerator()
+print(sum(g2))
+
+# Generators can take variables as an input
+def countdown(num):
+    print('Starting')
+    while num > 0:
+        yield num
+        num -= 1
+        
+cd = countdown(4)
+value = next(cd)
+print(value) # 4
+print(next(cd)) # 3
+
+# Advantages of generators
+def firstn(n):
+    # Normal approach
+    nums = []
+    num = 0
+    while num < n:
+        nums.append(num)
+        num += 1
+    return nums
+ 
+print(sum(firstn(10))) # 45
+print(sys.getsizeof(firstn(10))) # Size 184 bits
+print(sys.getsizeof(firstn(1000000))) # Size 8448728 bits
+
+# How to set this up as a generator
+def firstn_generator(n):
+    num = 0
+    while num < n:
+        yield num
+        num += 1
+
+# Generators are much more memory efficient in part because not all numbers
+# need to be constructed before it can be used
+print(sum(firstn_generator(10))) # 45
+print(sys.getsizeof(firstn_generator(10))) # Size 112 bits
+print(sys.getsizeof(firstn_generator(1000000))) # Size 112 bits
+
+# Example: Fibonacci Sequence
+def fibonacci(limit):
+    # 0, 1, 1, 2, 3, 5, 8, ...
+    a, b = 0, 1
+    while a < limit:
+        yield a
+        a, b = b, a + b
+        
+fib = fibonacci(3000)
+for i in fib:
+    print(i)
+    
+# Generator expressions (similar to list comprehension)
+mygenerator2 = (i for i in range(10) if i % 2 == 0)
+print(list(mygenerator2))
+    
+mylist = [i for i in range(10) if i % 2 == 0]
+print(mylist)
