@@ -1,78 +1,116 @@
 '''
-Last GitHub Sync: 10/1/22
+Last GitHub Sync
+-Desktop: 10/12/22
+-Surface Pro: 10/12/22
 
-Created on: 10/1/22
-
-Source: https://youtu.be/HGOBQPFzWKo
+Created on: 9/19/22
 
 @author: nstru
 '''
 
 '''
--Several built-in Python modules for randomization
--random: Used for pseudo-random numbers
--secrets: Used for cryptographically strong random numbers
--NumPy: used to generate arrays with random numbers
+-String: Collection data type that is ordered and immutable
+-Used for text representation (among other uses)
 '''
 
-# Random: pseudo-random, numbers are reproducible (depend on seed)
-import random
+from timeit import default_timer as timer
 
-# With seed set the output is always the same
-# random.seed(1)
-# .random(): Produces random float in range [0,1]
-a = random.random()
-print(a)
-# .uniform(a, b): Creates random float in range [a,b]
-b = random.uniform(5,25)
-print(b)
-# .randint(a, b): Created random integer in rand [a, b)
-c = random.randint(1,10)
-print(c)
-# .normalvariate(mu, sigma): Picks random value from normal distribution
-# with mean mu and standard deviation sigma
-d = random.normalvariate(0, 1)
-print(d)
-# .choice: Selects an element from provided list
-myList = list("ABCDEFGHI")
-e = random.choice(myList)
-print(e)
-# .sample(list, # elements): Picks unique elements
-f = random.sample(myList, 4)
-print(f)
-# .choices(list, k=n): Picks n elements with repetition
-g = random.choices(myList, k=5)
-print(g)
-# .shuffle(list) randomizes order of the lsit
-random.shuffle(myList)
+# Strings are created with single '' or double "" quotes
+single = '"Single quotes"'
+double = "'Double quotes'"
+
+print(single + ' ' + double) # "Single quotes" 'Double quotes'
+
+# Escape character \ allows text across multiples lines of code to consolidate
+singleLine = "test\
+ string"
+print(singleLine) # test string
+
+# Subsets of strings can be selected like lists
+baseString = "Hello World"
+char = baseString[0:3]
+print(char) # Hel
+
+# Strings are immutable and cannot be updated
+# baseString[5] = "O" <- This causes a TypeError
+
+# Strings can be reversed with index [::-1]
+backString = baseString[::-1]
+print(backString) # dlroW olleH
+
+# Two strings can be concatenated with + 
+mirrorString = baseString + ' ' + backString
+print(mirrorString)
+
+# Strings can be iterated over with for/in loop
+for i in mirrorString:
+    print(i)
+    
+# String contents can be checked with if in
+if 'ell' in mirrorString:
+    print("Hello")
+    
+# Wide space around a string can be removed with .strip()
+wideString = "     Five Spaces     "
+print(wideString)
+# Just wideString.strip() does nothing because strings are immutable
+wideString = wideString.strip() 
+print(wideString)
+
+# Strings can be changed to all uppercase with .upper()
+upperString = wideString.upper()
+print(upperString)
+
+# Strings can be changed to lowercase with .lower()
+lowerString = wideString.lower()
+print(lowerString)
+
+# .startswith('text'), .endswith('text) return True/False
+
+# .find('text') returns index of first instance, else -1 if not found
+print(mirrorString.find("olle"))
+
+# .replace('old text', 'new text') creates a new string with new text
+print(wideString.replace("Spaces", "Point Palm Exploding Heart Technique"))
+
+# Strings can be converted to lists, default delimiter space ( )
+myList = mirrorString.split() 
 print(myList)
+myListNoL = mirrorString.split('l')
+print(myListNoL)
 
-# Secrets module generates true random numbers; only has 3 functions
-import secrets
+# .join() turns a list into a string
+restrungPacked = ''.join(myList)
+print(restrungPacked)
+restrungSpaced = ' '.join(myList)
+print(restrungSpaced)
 
-# .randbelow(10): Produces random integer in range (0,10)
-secrets_a = secrets.randbelow(10)
-print(secrets_a)
-# .randbits(4): Produces random binary number
-secrets_b = secrets.randbits(4)
-print(secrets_b)
-# .choice(list) picks a random choice form list (not reproducible)
-secrets_c = secrets.choice(myList)
-print(secrets_c)
+# Be careful with transforming lists into strings
+aList = ['a'] * 1000000
 
-# numpy module is useful for creating random arrays
-import numpy as np
-# numpy also has seed functionality like random
-# np.random.seed(1)
+# Bad approach, creates far too many new variables (new string each line)
+start = timer()
+aString = ''
+for i in aList:
+    aString += i
+    # print(aString) Do NOT want to print 1000000 lists
+stop = timer()
+print(stop - start) # Time taken 0.1356461s
 
-# Create a random array
-np_a = np.random.rand(3,3)
-print(np_a)
-# Create an array of integers
-np_b = np.random.randint(0, 21, (3,4))
-print(np_b)
-# .random.shuffle(array) switches elements in the first access
-arr = np.array([[1,2,3], [4,5,6], [7,8,9]])
-print(arr)
-np.random.shuffle(arr)
-print(arr)
+# Better approach
+start = timer()
+aString = ''.join(aList)
+# print(aString)
+stop = timer()
+print(stop - start) # Time taken 0.0050178s
+
+# String formatting (%s string, %d integer, %f float (6-digit default),
+# adjust with %.nf, where n = digits
+var = "Tom"
+testString = "the variable is %s" % var
+print(testString)
+
+# f-strings
+fvar = "Larry"
+fString = f"it is easier to place the variable {fvar}"
+print(fString)
