@@ -1,0 +1,19 @@
+'''
+Data Science Practice Project 1
+
+Last Desktop Synchronization: 4/6/2023
+
+Created on: 4/6/2023
+
+@author: nstru
+'''
+
+import pandas as pd
+
+# Import data
+# USDA ERS education and unemployment data
+edu = pd.read_csv('Education.csv', skiprows=3, encoding='cp1252')
+unemp = pd.read_csv('Unemployment.csv', skiprows=4)
+
+print(edu.info())
+print(unemp.info())
