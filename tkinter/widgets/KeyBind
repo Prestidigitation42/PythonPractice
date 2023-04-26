@@ -1,0 +1,33 @@
+'''
+Created on: 4/26/2023
+
+@author: nstru
+
+Source: https://www.youtube.com/watch?v=GLnNPjL1U2g
+'''
+
+import tkinter as Tk
+
+root = Tk.Tk()
+root.title("Key Bindings With tkinter")
+root.geometry("400x400")
+
+def clicker(event):
+    myLabel = Tk.Label(root, text="You clicked a button! " + str(event.x) + " "
+                       + str(event.y))
+    myLabel.pack()
+
+myButton = Tk.Button(root, text="Click me!", command=clicker)
+myButton.bind("<Enter>", clicker)
+myButton.pack(pady=20)
+
+"""Binding Options:
+<Button-1>: Left mouse button
+<Button-2>: Middle mouse button
+<Button-3>: Right mouse button
+<Enter>: Triggers when cursor enters widgets' displayed space
+<Leave>: Inverse of enter
+<Key>: Triggers from any keyboard entry
+"""
+
+root.mainloop()
