@@ -1,0 +1,38 @@
+'''
+Created on May 5, 2023
+
+@author: nstru
+'''
+
+import tkinter as Tk
+
+root = Tk.Tk()
+root.geometry("800x800")
+
+# Configure grid rows and columns individually
+# Tk.Grid.rowconfigure(root, index=0, weight=1)
+# Tk.Grid.rowconfigure(root, index=1, weight=1)
+Tk.Grid.columnconfigure(root, index=0, weight=1)
+
+# Create button widgets
+button_1 = Tk.Button(root, text="Button 1")
+button_2 = Tk.Button(root, text="Button 2")
+button_3 = Tk.Button(root, text="Button 3")
+button_4 = Tk.Button(root, text="Button 4")
+
+# Put them on the screen
+button_1.grid(row=0, column=0, sticky="NSEW")
+button_2.grid(row=1, column=0, sticky="NSEW")
+button_3.grid(row=2, column=0, sticky="NSEW")
+button_4.grid(row=3, column=0, sticky="NSEW")
+
+# Create a list of buttons to configure
+buttonList = [button_1, button_2, button_3, button_4]
+rowNumber = 0
+
+# Loop through the list to configure each row automatically
+for button in buttonList:
+    Tk.Grid.rowconfigure(root, index=rowNumber, weight=1)
+    rowNumber += 1
+
+root.mainloop()
