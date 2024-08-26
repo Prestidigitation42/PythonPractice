@@ -91,9 +91,27 @@ class MainFrame(ttk.Frame):
         super().__init__(parent)
         self.place(relx=0.3, y=0, relwidth=0.3, relheight=1)
         
-        frame=ttk.Frame(self)
+        frame = ttk.Frame(self)
+        label = ttk.Label(frame, text='Test 1', background='red')
+        button = ttk.Button(frame, text='Button')
+        
+        label.pack(expand=True, fill='both')
+        button.pack(expand=True, fill='both', pady=10)
+        
+        frame.pack(side='left', expand=True, fill='both', padx=20, pady=20)
 
 # Call the App class to create the program window
 title = 'Using Classes With tkinter'
 size = (600, 600)
 App(title, size)
+
+
+
+# UPDATE CHALLENGES
+
+# 1. Update the Menu class so that create_widgets creates attributes for the
+# class, which are then placed with a separate method place_widgets
+
+# 2. Update the MainFrame class so that 'frame' is a separate Class which 
+# contains 'label' and 'button', set up so that the color, label text, and
+# button text can all be set via arguments
