@@ -7,29 +7,91 @@ Created on Aug 26, 2024
 # Imports
 import tkinter as Tk
 from tkinter import ttk
+from pickle import TRUE
 
 # Class for main program window inherited from Tk.Tk
 class App(Tk.Tk):
     def __init__(self, title, size):
-        # Set up main window
+        # Set up program window
         super().__init__()
-        # Main window title
+        # Program window title
         self.title(title)
-        # Main window geometry
+        # Program window geometry
         self.geometry(f'{size[0]}x{size[1]}')
         self.minsize(size[0], size[1])
         
         # Widgets
         self.menu = Menu(self)
-        # Set the main window to run when called
+        self.main_frame = MainFrame(self)
+        # Set the program window to run
         self.mainloop()
 
 # Class for program menu
 class Menu(ttk.Frame):
     def __init__(self, parent):
+        # Set up menu frame
         super().__init__(parent)
-        ttk.Label(self, background='red').pack(expand=True, fill='both')
         self.place(x=0, y=0, relwidth=0.3, relheight=1)
+        # Add widgets to the menu frame
+        self.create_widgets()
+        
+    def create_widgets(self):
+        # Create menu buttons
+        menu_button1 = ttk.Button(self, text='Button 1')
+        menu_button2 = ttk.Button(self, text='Button 2')
+        menu_button3 = ttk.Button(self, text='Button 3')
+        # Create menu sliders
+        menu_slider1 = ttk.Scale(self, orient='vertical')
+        menu_slider2 = ttk.Scale(self, orient='vertical')
+        # Create toggle frame
+        toggle_frame = ttk.Frame(self)
+        menu_toggle1 = ttk.Checkbutton(toggle_frame, text='Check 1')
+        menu_toggle2 = ttk.Checkbutton(toggle_frame, text='Check 2')
+        # Create entry 
+        entry = ttk.Entry(self)
+        
+        # Create the grid
+        self.columnconfigure((0,1,2), weight=1, uniform='a')
+        self.rowconfigure((0,1,2,3,4), weight=1, uniform='a')
+        # Place menu widgets
+        menu_button1.grid(row=0, column=0, sticky='nsew', columnspan=2)
+        menu_button2.grid(row=0, column=2, sticky='nsew')
+        menu_button3.grid(row=1, column=0, sticky='nsew', columnspan=3)
+        menu_slider1.grid(row=2, column=0, rowspan=2, sticky='nsew', pady=20)
+        menu_slider2.grid(row=2, column=2, rowspan=2, sticky='nsew', pady=20)
+        # Toggle layout
+        toggle_frame.grid(row=4, column=0, columnspan=3, sticky='nsew')
+        menu_toggle1.pack(side='left', expand=True)
+        menu_toggle2.pack(side='left', expand=True)
+        # Entry layout
+        entry.place(relx=0.5, rely=0.95, relwidth=0.9, anchor='center')
+    
+    ''' Update challenge: Make this code work using these as attributes    
+    def create_layout(self):
+        # Create the grid
+        self.columnconfigure((0,1,2), weight=1, uniform='a')
+        self.rowconfigure((0,1,2,3,4), weight=1, uniform='a')
+        # Place menu widgets
+        menu_button1.grid(row=0, column=0, sticky='nsew', columnspan=2)
+        menu_button2.grid(row=0, column=2, sticky='nsew')
+        menu_button3.grid(row=1, column=0, sticky='nsew', columnspan=3)
+        menu_slider1.grid(row=2, column=0, rowspan=2, sticky='nsew', pady=20)
+        menu_slider2.grid(row=2, column=2, rowspan=2, sticky='nsew', pady=20)
+        # Toggle layout
+        toggle_frame.grid(row=4, column=0, columnspan=3, sticky='nsew')
+        menu_toggle1.pack(side='left', expand=TRUE)
+        menu_toggle2.pack(side='left', expand=TRUE)
+        # Entry layout
+        entry.place(relx=0.5, rely=0.95, relwidth=0.9, anchor='center')
+    '''
+
+# Class for 'main' program frame
+class MainFrame(ttk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        self.place(relx=0.3, y=0, relwidth=0.3, relheight=1)
+        
+        frame=ttk.Frame(self)
 
 # Call the App class to create the program window
 title = 'Using Classes With tkinter'
