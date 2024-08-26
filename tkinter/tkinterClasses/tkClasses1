@@ -1,0 +1,37 @@
+'''
+Created on Aug 26, 2024
+
+@author: Prestidigitation
+'''
+
+# Imports
+import tkinter as Tk
+from tkinter import ttk
+
+# Class for main program window inherited from Tk.Tk
+class App(Tk.Tk):
+    def __init__(self, title, size):
+        # Set up main window
+        super().__init__()
+        # Main window title
+        self.title(title)
+        # Main window geometry
+        self.geometry(f'{size[0]}x{size[1]}')
+        self.minsize(size[0], size[1])
+        
+        # Widgets
+        self.menu = Menu(self)
+        # Set the main window to run when called
+        self.mainloop()
+
+# Class for program menu
+class Menu(ttk.Frame):
+    def __init__(self, parent):
+        super().__init__(parent)
+        ttk.Label(self, background='red').pack(expand=True, fill='both')
+        self.place(x=0, y=0, relwidth=0.3, relheight=1)
+
+# Call the App class to create the program window
+title = 'Using Classes With tkinter'
+size = (600, 600)
+App(title, size)
