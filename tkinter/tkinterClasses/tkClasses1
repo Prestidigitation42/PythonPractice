@@ -117,3 +117,5 @@ App(title, size)
 # 2. Update the MainFrame class so that 'frame' is a separate Class which 
 # contains 'label' and 'button', set up so that the color, label text, and
 # button text can all be set via arguments
+
+# 3. Clean up layout - Add borders to frames
