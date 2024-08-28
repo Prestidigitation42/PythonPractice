@@ -2,12 +2,13 @@
 Created on Aug 26, 2024
 
 @author: Prestidigitation
+
+Reference: https://www.youtube.com/watch?v=eaxPK9VIkFM&t=1432s
 '''
 
 # Imports
 import tkinter as Tk
 from tkinter import ttk
-from pickle import TRUE
 
 # Class for main program window inherited from Tk.Tk
 class App(Tk.Tk):
@@ -50,22 +51,6 @@ class Menu(ttk.Frame):
         self.menu_toggle2 = ttk.Checkbutton(self.toggle_frame, text='Check 2')
         # Create entry 
         self.entry = ttk.Entry(self)
-        
-        # # Create the grid
-        # self.columnconfigure((0,1,2), weight=1, uniform='a')
-        # self.rowconfigure((0,1,2,3,4), weight=1, uniform='a')
-        # # Place menu widgets
-        # self.menu_button1.grid(row=0, column=0, sticky='nsew', columnspan=2)
-        # self.menu_button2.grid(row=0, column=2, sticky='nsew')
-        # self.menu_button3.grid(row=1, column=0, sticky='nsew', columnspan=3)
-        # self.menu_slider1.grid(row=2, column=0, rowspan=2, sticky='nsew', pady=20)
-        # self.menu_slider2.grid(row=2, column=2, rowspan=2, sticky='nsew', pady=20)
-        # # Toggle layout
-        # self.toggle_frame.grid(row=4, column=0, columnspan=3, sticky='nsew')
-        # self.menu_toggle1.pack(side='left', expand=True)
-        # self.menu_toggle2.pack(side='left', expand=True)
-        # # Entry layout
-        # self.entry.place(relx=0.5, rely=0.95, relwidth=0.9, anchor='center')
     
     # Create the grid to place the objects from create_widgets
     def create_layout(self):
@@ -85,20 +70,44 @@ class Menu(ttk.Frame):
         # Entry layout
         self.entry.place(relx=0.5, rely=0.95, relwidth=0.9, anchor='center')
 
-# Class for 'main' program frame
+# Class for 'Main' program frame
 class MainFrame(ttk.Frame):
     def __init__(self, parent):
         super().__init__(parent)
         self.place(relx=0.3, y=0, relwidth=0.3, relheight=1)
+        self.subframe1 = SubFrame(self, ['Red', 'Blue'], ['Test 1', 'Button'])
         
-        frame = ttk.Frame(self)
-        label = ttk.Label(frame, text='Test 1', background='red')
-        button = ttk.Button(frame, text='Button')
+        # frame = ttk.Frame(self)
+        # label = ttk.Label(frame, text='Test 1', background='red')
+        # button = ttk.Button(frame, text='Button')
+        #
+        # label.pack(expand=True, fill='both')
+        # button.pack(expand=True, fill='both', pady=10)
+        #
+        # frame.pack(side='left', expand=True, fill='both', padx=20, pady=20)
+
+# Class for frame within 'Main' frame
+class SubFrame(ttk.Frame):
+    def __init__(self, parent, color, text):
+        super().__init__(parent)
+        self.color = color
+        self.text = text
+        self.create_widgets()
+        self.create_layout()
+
+    def create_widgets(self):
+        self.frame = ttk.Frame(self)
+        print("Subframe's subframe created")
+        self.label = ttk.Label(self, text=self.text[0], 
+                               background=self.color[0])
+        self.button = ttk.Button(self, text=self.text[1])
+      
+    def create_layout(self):
+        self.label.pack(expand=True, fill='both')
+        self.button.pack(expand=True, fill='both', pady=10)
         
-        label.pack(expand=True, fill='both')
-        button.pack(expand=True, fill='both', pady=10)
-        
-        frame.pack(side='left', expand=True, fill='both', padx=20, pady=20)
+        self.pack(side='left', expand=True, fill='both', padx=20, pady=20)
+        print("Subframe's subframe placed")
 
 # Call the App class to create the program window
 title = 'Using Classes With tkinter'
@@ -116,6 +125,7 @@ App(title, size)
 # 2. Update the MainFrame class so that 'frame' is a separate Class which 
 # contains 'label' and 'button', set up so that the color, label text, and
 # button text can all be set via arguments
+# COMPLETED 8/28/24
 
 # 3. Clean up layout
 #   a. Add borders to frames
